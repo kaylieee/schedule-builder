@@ -9,13 +9,21 @@ hubList = browser.find_element(By.CLASS_NAME,'cf-hub-offerings')
 courseList = browser.find_element(By.CLASS_NAME,'cf-course')
 # print(hubList.text)
 tableNum = 1
+fallSections = []
+springSections = []
 while True:
     try:
+        semester = browser.find_element(By.XPATH,f'//*[@id="course-content"]/div[3]/h4[{tableNum}]')
         table = browser.find_element(By.XPATH,f'//*[@id="course-content"]/div[3]/table[{tableNum}]/tbody[1]/tr[2]')
-        print(table.text)
+        if semester.text[0] == 'F':
+            fallSections.append(table.text)
+        else:
+            springSections.append(table.text)
         tableNum += 1
     except NoSuchElementException:
         break
+print(fallSections)
+print(springSections)
 
 
 
